@@ -14,10 +14,12 @@ $accent: #50b3ff;
           padding: 16px;
           border-radius: 10px;
           position: absolute;
-          top: 10px;
-          left: 15%;
-          display: none;
+          display: flex;
           flex-direction: column;
+          width: calc(100% - 100px);
+          position: absolute;
+          top: 0;
+          margin: 10px 0;
           height: 400px;
           overflow: auto;
           p{
@@ -29,8 +31,7 @@ $accent: #50b3ff;
      }
 }
 .content{
-     width: 100%;
-     max-width: 750px;
+     width: calc(100% - 100px);
      background: $secondary;
      padding: 20px;
      border-radius: 75px;
@@ -39,8 +40,7 @@ $accent: #50b3ff;
      position: relative;
      textarea{
           padding: 10px;
-          width: 100%;
-          max-width: 550px;
+          width: 90%;
           border: none;
           outline: none;
           resize: none;
