@@ -5,9 +5,28 @@ $accent: #50b3ff;
 .container{
      display: flex;
      @include flex-align(center, center);
+     flex-direction: column;
      min-height: 100vh;
      background: $primary;
      padding: 15px;
+     .autocomplete{
+          background: $secondary;
+          padding: 16px;
+          border-radius: 10px;
+          position: absolute;
+          top: 10px;
+          left: 15%;
+          display: none;
+          flex-direction: column;
+          height: 400px;
+          overflow: auto;
+          p{
+               font-size: 16.5px;
+               color: white;
+               margin: 10px 5px;
+               cursor: pointer;
+          }
+     }
 }
 .content{
      width: 100%;
@@ -17,6 +36,7 @@ $accent: #50b3ff;
      border-radius: 75px;
      display: flex;
      @include flex-align(space-between, center);box-shadow: 0 5px 25px rgba($color: #222222, $alpha: .25);
+     position: relative;
      textarea{
           padding: 10px;
           width: 100%;
