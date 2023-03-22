@@ -4,7 +4,7 @@ $accent: #50b3ff;
 @mixin flex-align($j,$a){justify-content: $j;align-items: $a;}
 .container{
      display: flex;
-     @include flex-align(center, center);
+     @include flex-align(flex-end, center);
      flex-direction: column;
      min-height: 100vh;
      background: $primary;
@@ -13,11 +13,9 @@ $accent: #50b3ff;
           background: $secondary;
           padding: 16px;
           border-radius: 10px;
-          position: absolute;
           display: flex;
           flex-direction: column;
           width: calc(100% - 100px);
-          position: absolute;
           top: 0;
           margin: 10px 0;
           height: 400px;
@@ -37,7 +35,6 @@ $accent: #50b3ff;
      border-radius: 75px;
      display: flex;
      @include flex-align(space-between, center);box-shadow: 0 5px 25px rgba($color: #222222, $alpha: .25);
-     position: relative;
      textarea{
           padding: 10px;
           width: 90%;
