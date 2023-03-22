@@ -21,5 +21,7 @@ export class AppComponent {
     "Clementina DuBuque",
     "Petros Poghosyan",
     "Poghos Petrosyan"
-  ]
+  ];
+  txtInput = "";
+  mentioned = false;
 }
