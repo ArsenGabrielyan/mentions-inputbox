@@ -23,5 +23,6 @@ export class AppComponent {
     "Poghos Petrosyan"
   ];
   txtInput = "";
-  mentioned = false;
+  mentioned = true;
+  sortedUsers = this.users.sort();
 }
