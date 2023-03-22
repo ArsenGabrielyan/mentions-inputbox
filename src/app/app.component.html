@@ -3,7 +3,7 @@
     <p *ngFor="let user of sortedUsers|filterUser:txtInput">{{user}}</p>
   </div>
   <div class="content">
-    <textarea type="text" name="inputbox" [(ngModel)]="txtInput"></textarea>
+    <textarea type="text" name="inputbox" [(ngModel)]="txtInput" (input)="handleKey()"></textarea>
     <button><span class="material-symbols-outlined">send</span></button>
   </div>
 </div>

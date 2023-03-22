@@ -23,6 +23,9 @@ export class AppComponent {
     "Poghos Petrosyan"
   ];
   txtInput = "";
-  mentioned = true;
+  mentioned = false;
   sortedUsers = this.users.sort();
+  handleKey(){
+    this.txtInput.trim()!=="" ? this.mentioned = true : this.mentioned = false;
+  }
 }
