@@ -44,9 +44,6 @@ export class AppComponent {
   }
   checkIndex(e:any){
     const start = e.target.selectionStart;
-    const mention = this.txtInput.lastIndexOf("@");
-    const selection = mention-start;
-    const mentionText = this.txtInput.substring(mention+1);
-    console.log(this.txtInput.substring(1,selection+mentionText.length))
+    console.log(this.txtInput.substring(1,this.txtInput.length-start-1))
   }
 }
