@@ -47,10 +47,9 @@ export class AppComponent {
     const end = e.target.selectionEnd+1;
     const mention = this.txtInput.lastIndexOf("@");
     if(mention!==-1){
-      const search = this.txtInput.substring(start,end-(start));
-      this.suggestions = this.getUsers(search);
+      const search = this.txtInput.substring(start,end-start);
+      search.split(" ").map((el)=>this.suggestions = this.getUsers(el));
       this.mentioned = true;
-      console.log(search)
-    } else this.mentioned = false
+    } else this.mentioned = false;
   }
 }
