@@ -44,6 +44,13 @@ export class AppComponent {
   }
   checkIndex(e:any){
     const start = e.target.selectionStart;
-    console.log(this.txtInput.substring(1,this.txtInput.length-start-1))
+    const end = e.target.selectionEnd+1;
+    const mention = this.txtInput.lastIndexOf("@");
+    if(mention!==-1){
+      const search = this.txtInput.substring(start,end-(start));
+      this.suggestions = this.getUsers(search);
+      this.mentioned = true;
+      console.log(search)
+    } else this.mentioned = false
   }
 }
