@@ -25,6 +25,7 @@ $accent: #50b3ff;
                color: white;
                margin: 10px 5px;
                cursor: pointer;
+               &.selected{color: #82b6ff;}
           }
      }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IUserList } from './interface/userlist';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,9 @@ import { IUserList } from './interface/userlist';
 export class AppComponent {
   txtInput = "";
   mentioned = false;
-  suggestions:IUserList[] = [];
+  suggestions:string[] = [];
+  userIndex = 0;
+  selectedUser = "";
   handleInput(){
     const mention = this.txtInput.lastIndexOf("@");
     if(mention!==-1){
@@ -18,24 +19,24 @@ export class AppComponent {
       this.mentioned = true;
     } else this.mentioned = false;
   }
-  getUsers(query:string):IUserList[]{
-    const users: IUserList[] = [
-      {name: "Arsen Gabrielyan", selected: false},
-      {name: "Gev Gabrielyan", selected: false},
-      {name: "John Addams", selected: false},
-      {name: "Tom Smith", selected: false},
-      {name: "Leanne Graham", selected: false},
-      {name: "Ervin Howell", selected: false},
-      {name: "Clementine Bauch", selected: false},
-      {name: "Patricia Lebsack", selected: false},
-      {name: "Chelsey Dietrich", selected: false},
-      {name: "Kurtis Weissnat", selected: false},
-      {name: "Glenna Reichert", selected: false},
-      {name: "Clementina DuBuque", selected: false},
-      {name: "Petros Poghosyan", selected: false},
-      {name: "Poghos Petrosyan", selected: false},
+  getUsers(query:string):string[]{
+    const users: string[] = [
+      "Arsen Gabrielyan",
+      "Gev Gabrielyan", 
+      "John Addams", 
+      "Tom Smith", 
+      "Leanne Graham", 
+      "Ervin Howell", 
+      "Clementine Bauch", 
+      "Patricia Lebsack", 
+      "Chelsey Dietrich", 
+      "Kurtis Weissnat",
+      "Glenna Reichert", 
+      "Clementina DuBuque",
+      "Petros Poghosyan", 
+      "Poghos Petrosyan",
     ];
-    return users.sort().filter(val=>val.name.toLowerCase().includes(query.toLowerCase()));
+    return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
   select(user:string){
     const mention = this.txtInput.lastIndexOf("@");
@@ -52,5 +53,38 @@ export class AppComponent {
       search.split(" ").map((el)=>this.suggestions = this.getUsers(el));
       this.mentioned = true;
     } else this.mentioned = false;
+  }
+  handleKey(e:any){
+    if(!this.mentioned) return;
+    switch(e.key){
+      case "ArrowUp":
+        this.selectUserByKey("prev");
+        break;
+      case "ArrowDown":
+        this.selectUserByKey("next");
+        break;
+    }
+  }
+  selectUserByKey(type: string){
+    switch(type){
+      case "next":
+        this.userIndex++;
+        if(this.suggestions[this.userIndex]===undefined) this.userIndex = 0;
+        this.selectedUser = this.suggestions[this.userIndex];
+        break;
+      case "prev":
+        this.userIndex--;
+        if(this.suggestions[this.userIndex]===undefined) this.userIndex = this.suggestions.length-1;
+        this.selectedUser = this.suggestions[this.userIndex];
+        break;
+    }
+  }
+  handleEnter(e:any){
+    e.preventDefault();
+    if(!this.selectedUser || !this.mentioned) return;
+    const mention = this.txtInput.lastIndexOf("@");
+    const newText = this.txtInput.substring(0,mention+1)+this.selectedUser+"";
+    this.txtInput = newText;
+    this.mentioned = false;
   }
 }
