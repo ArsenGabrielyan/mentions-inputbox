@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IUserList } from './interface/userlist';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   txtInput = "";
   mentioned = false;
-  suggestions:string[] = [];
-  handleKey(){
+  suggestions:IUserList[] = [];
+  handleInput(){
     const mention = this.txtInput.lastIndexOf("@");
     if(mention!==-1){
       const search = this.txtInput.substring(mention+1);
@@ -17,24 +18,24 @@ export class AppComponent {
       this.mentioned = true;
     } else this.mentioned = false;
   }
-  getUsers(query:string):string[]{
-    const users: string[] = [
-      "Arsen Gabrielyan",
-      "Gev Gabrielyan",
-      "John Addams",
-      "Tom Smith",
-      "Leanne Graham",
-      "Ervin Howell",
-      "Clementine Bauch",
-      "Patricia Lebsack",
-      "Chelsey Dietrich",
-      "Kurtis Weissnat",
-      "Glenna Reichert",
-      "Clementina DuBuque",
-      "Petros Poghosyan",
-      "Poghos Petrosyan"
+  getUsers(query:string):IUserList[]{
+    const users: IUserList[] = [
+      {name: "Arsen Gabrielyan", selected: false},
+      {name: "Gev Gabrielyan", selected: false},
+      {name: "John Addams", selected: false},
+      {name: "Tom Smith", selected: false},
+      {name: "Leanne Graham", selected: false},
+      {name: "Ervin Howell", selected: false},
+      {name: "Clementine Bauch", selected: false},
+      {name: "Patricia Lebsack", selected: false},
+      {name: "Chelsey Dietrich", selected: false},
+      {name: "Kurtis Weissnat", selected: false},
+      {name: "Glenna Reichert", selected: false},
+      {name: "Clementina DuBuque", selected: false},
+      {name: "Petros Poghosyan", selected: false},
+      {name: "Poghos Petrosyan", selected: false},
     ];
-    return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
+    return users.sort().filter(val=>val.name.toLowerCase().includes(query.toLowerCase()));
   }
   select(user:string){
     const mention = this.txtInput.lastIndexOf("@");
