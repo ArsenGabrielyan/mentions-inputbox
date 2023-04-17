@@ -55,6 +55,7 @@ export class AppComponent {
     } else this.mentioned = false;
   }
   handleKey(e:any){
+    e.preventDefault();
     if(!this.mentioned) return;
     switch(e.key){
       case "ArrowUp":
