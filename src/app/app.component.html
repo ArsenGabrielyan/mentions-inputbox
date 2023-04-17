@@ -1,9 +1,8 @@
 <div class="container">
-  <div class="autocomplete" *ngIf="mentioned">
-    <p *ngFor="let user of suggestions" (click)="select(user)" [ngClass]="{'selected': selectedUser===user}">{{user}}</p>
-  </div>
   <div class="content">
     <textarea type="text" name="inputbox" id="msgInput" [(ngModel)]="txtInput" (input)="handleInput()" (click)="checkIndex($event)" (keyup)="handleKey($event)" (keydown.enter)="handleEnter($event)"></textarea>
-    <button><span class="material-symbols-outlined">send</span></button>
+  </div>
+  <div class="autocomplete" *ngIf="mentioned">
+    <p *ngFor="let user of suggestions" (click)="select(user)" [ngClass]="{'selected': selectedUser===user}">{{user}}</p>
   </div>
 </div>

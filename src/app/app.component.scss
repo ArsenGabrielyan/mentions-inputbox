@@ -4,7 +4,7 @@ $accent: #50b3ff;
 @mixin flex-align($j,$a){justify-content: $j;align-items: $a;}
 .container{
      display: flex;
-     @include flex-align(flex-end, center);
+     @include flex-align(flex-start, center);
      flex-direction: column;
      min-height: 100vh;
      background: $primary;
@@ -15,10 +15,9 @@ $accent: #50b3ff;
           border-radius: 10px;
           display: flex;
           flex-direction: column;
-          width: calc(100% - 100px);
+          width: calc(100% - 20px);
           top: 0;
           margin: 10px 0;
-          height: 400px;
           overflow: auto;
           p{
                font-size: 16.5px;
@@ -30,7 +29,7 @@ $accent: #50b3ff;
      }
 }
 .content{
-     width: calc(100% - 100px);
+     width: calc(100% - 20px);
      background: $secondary;
      padding: 20px;
      border-radius: 75px;
@@ -38,26 +37,12 @@ $accent: #50b3ff;
      @include flex-align(space-between, center);box-shadow: 0 5px 25px rgba($color: #222222, $alpha: .25);
      textarea{
           padding: 10px;
-          width: 90%;
+          width: 99%;
           border: none;
           outline: none;
           resize: none;
           font-size: 16.5px;
           background: none;
           color: white;
-     }
-     button{
-          padding: 1em;
-          font-size: 16.5px;
-          border: 2px solid $accent;
-          border-radius: 75px;
-          background: none;
-          outline: none;
-          color: $accent;
-          cursor: pointer;
-          transition: .3s ease;
-          display: flex;
-          @include flex-align(center, center);
-          &:hover{background: $accent;color: white;}
      }
 }
