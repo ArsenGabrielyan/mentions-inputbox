@@ -83,7 +83,7 @@ export class AppComponent {
     e.preventDefault();
     if(!this.selectedUser || !this.mentioned) return;
     const mention = this.txtInput.lastIndexOf("@");
-    const newText = this.txtInput.substring(0,mention+1)+this.selectedUser+"";
+    const newText = this.txtInput.substring(0,mention+1)+this.selectedUser+" ";
     this.txtInput = newText;
     this.mentioned = false;
   }
