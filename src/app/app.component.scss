@@ -1,20 +1,20 @@
 $primary: #444;
 $secondary: #666;
+$accent: #82b6ff;
 @mixin flex-align($j,$a){justify-content: $j;align-items: $a;}
 .container{
      display: flex;@include flex-align(flex-start, center);
      flex-direction: column;min-height: 100vh;
      background: $primary;padding: 15px 0;
      .autocomplete{
-          width: calc(100% - 20px);
-          background: $secondary;
+          width: calc(100% - 20px);background: $secondary;
           padding: 16px;border-radius: 10px;
           display: flex;flex-direction: column;
           top: 0;margin: 10px 0;overflow: auto;
           p{
                font-size: 16.5px;cursor: pointer;
                color: white;margin: 10px 5px;
-               &.selected{color: #82b6ff;}
+               &.selected, &:hover{color: $accent;}
           }
      }
 }
