@@ -47,12 +47,12 @@ export class AppComponent {
   checkIndex(e:any){
     const start = e.target.selectionStart;
     const end = e.target.selectionEnd+1;
-    const mention = this.txtInput.lastIndexOf("@");
-    if(mention!==-1){
-      const search = this.txtInput.substring(start,end-start);
-      search.split(" ").map((el)=>this.suggestions = this.getUsers(el));
+    const search = this.txtInput.substring(start,end-start);
+    search.split("@").map((el)=>{
+      if(!el) return;
+      el.split(" ").map(word=>this.suggestions = this.getUsers(word));
       this.mentioned = true;
-    } else this.mentioned = false;
+    })
   }
   handleKey(e:any){
     e.preventDefault();
