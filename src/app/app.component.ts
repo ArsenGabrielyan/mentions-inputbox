@@ -39,12 +39,13 @@ export class AppComponent {
     return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
   select(user:string){
-    const mention = this.txtInput.lastIndexOf("@");
-    const newText = this.txtInput.substring(0,mention+1)+user+" ";
-    this.txtInput = newText;
+    const words = this.txtInput.split(" "); 
+    words[words.length-1] = `@${user} `;
+    this.txtInput = words.join(" ");
     this.mentioned = false;
   }
   checkIndex(e:any){
+    if(!this.txtInput) return;
     const start = e.target.selectionStart;
     const end = e.target.selectionEnd+1;
     const search = this.txtInput.substring(start,end-start);
@@ -83,9 +84,9 @@ export class AppComponent {
   handleEnter(e:any){
     e.preventDefault();
     if(!this.selectedUser || !this.mentioned) return;
-    const mention = this.txtInput.lastIndexOf("@");
-    const newText = this.txtInput.substring(0,mention+1)+this.selectedUser+" ";
-    this.txtInput = newText;
+    const words = this.txtInput.split(" ");
+    words[words.length-1] = `@${this.selectedUser} `;
+    this.txtInput = words.join(" ");
     this.mentioned = false;
   }
 }
