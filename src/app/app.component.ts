@@ -29,8 +29,7 @@ export class AppComponent {
       "Ervin Howell", 
       "Clementine Bauch", 
       "Patricia Lebsack", 
-      "Chelsey Dietrich", 
-      "Kurtis Weissnat",
+      "Chelsey Dietrich",
       "Glenna Reichert", 
       "Clementina DuBuque",
       "Petros Poghosyan", 
@@ -39,8 +38,9 @@ export class AppComponent {
     return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
   select(user:string){
-    const words = this.txtInput.split(" "); 
-    words[words.length-1] = `@${user} `;
+    const words = this.txtInput.split(" "); let i = words.length-1;
+    if(words[i].startsWith("@")) words[i] = `@${user} `; 
+    else{words.push(`@${user} `);i++;}
     this.txtInput = words.join(" ");
     this.mentioned = false;
   }
@@ -59,12 +59,8 @@ export class AppComponent {
     e.preventDefault();
     if(!this.mentioned) return;
     switch(e.key){
-      case "ArrowUp":
-        this.selectUserByKey("prev");
-        break;
-      case "ArrowDown":
-        this.selectUserByKey("next");
-        break;
+      case "ArrowUp": this.selectUserByKey("prev"); break;
+      case "ArrowDown": this.selectUserByKey("next"); break;
     }
   }
   selectUserByKey(type: string){
@@ -84,9 +80,6 @@ export class AppComponent {
   handleEnter(e:any){
     e.preventDefault();
     if(!this.selectedUser || !this.mentioned) return;
-    const words = this.txtInput.split(" ");
-    words[words.length-1] = `@${this.selectedUser} `;
-    this.txtInput = words.join(" ");
-    this.mentioned = false;
+    this.select(this.selectedUser)
   }
 }
