@@ -3,6 +3,6 @@
     <textarea type="text" name="inputbox" id="msgInput" [(ngModel)]="txtInput" (input)="handleInput()" (click)="getMouseIndex($event)" (keyup)="handleKey($event)" (keydown.enter)="handleEnter($event)"></textarea>
   </div>
   <div class="autocomplete" *ngIf="mentioned">
-    <p *ngFor="let user of suggestions" (click)="select(user)" [ngClass]="{'selected': selectedUser===user}">{{user}}</p>
+    <p *ngFor="let user of suggestions; let i=index" (click)="select(user,i)" [ngClass]="{'selected': selectedUser===user}">{{user}}</p>
   </div>
 </div>

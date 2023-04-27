@@ -39,13 +39,12 @@ export class AppComponent {
     ];
     return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
-  select(user:string): void{
+  select(user:string, index:number=this.txtInput.split(" ").length-1): void{
     const words = this.txtInput.split(" "), word = `@${user} `; let i = words.length-1;
     if(words[i].startsWith("@")){
       words[i] = word;
     } else{
-      words.push(word);
-      i++;
+      words.splice(index,i,word);
     }
     this.txtInput = words.join(" ");
     this.mentioned = false;
