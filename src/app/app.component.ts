@@ -11,7 +11,7 @@ export class AppComponent {
   suggestions:string[] = [];
   userIndex = 0;
   selectedUser = "";
-  handleInput(){
+  handleInput(): void{
     const mention = this.txtInput.lastIndexOf("@");
     if(mention!==-1){
       const search = this.txtInput.substring(mention+1);
@@ -19,7 +19,7 @@ export class AppComponent {
       this.mentioned = true;
     } else this.mentioned = false;
   }
-  getUsers(query:string):string[]{
+  getUsers(query:string): string[]{
     const users: string[] = [
       "Arsen Gabrielyan",
       "Gev Gabrielyan", 
@@ -37,25 +37,30 @@ export class AppComponent {
     ];
     return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
-  select(user:string){
-    const words = this.txtInput.split(" "); let i = words.length-1;
-    if(words[i].startsWith("@")) words[i] = `@${user} `; 
-    else{words.push(`@${user} `);i++;}
+  select(user:string): void{
+    const words = this.txtInput.split(" "), word = `@${user} `; let i = words.length-1;
+    if(words[i].startsWith("@")){
+      words[i] = word;
+    } else{
+      words.push(word);
+      i++;
+    }
     this.txtInput = words.join(" ");
     this.mentioned = false;
   }
-  checkIndex(e:any){
+  checkIndex(e:MouseEvent): void{
     if(!this.txtInput) return;
-    const start = e.target.selectionStart;
-    const end = e.target.selectionEnd+1;
-    const search = this.txtInput.substring(start,end-start);
+    const elem = e.target as HTMLInputElement;
+    const start = elem.selectionStart;
+    const end = elem.selectionEnd;
+    const search = this.txtInput.substring(start!,end!-start!);
     search.split("@").map((el)=>{
       if(!el) return;
       el.split(" ").map(word=>this.suggestions = this.getUsers(word));
       this.mentioned = true;
-    })
+    });
   }
-  handleKey(e:any){
+  handleKey(e:KeyboardEvent): void{
     e.preventDefault();
     if(!this.mentioned) return;
     switch(e.key){
@@ -63,7 +68,7 @@ export class AppComponent {
       case "ArrowDown": this.selectUserByKey("next"); break;
     }
   }
-  selectUserByKey(type: string){
+  selectUserByKey(type: string): void{
     switch(type){
       case "next":
         this.userIndex++;
@@ -77,9 +82,9 @@ export class AppComponent {
         break;
     }
   }
-  handleEnter(e:any){
+  handleEnter(e:Event): void{
     e.preventDefault();
     if(!this.selectedUser || !this.mentioned) return;
-    this.select(this.selectedUser)
+    this.select(this.selectedUser);
   }
 }
