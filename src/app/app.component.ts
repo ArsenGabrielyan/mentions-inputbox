@@ -7,17 +7,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   txtInput = "";
+  selectedUser = "";
+  edited = "";
+  userIndex = 0;
   mentioned = false;
   suggestions:string[] = [];
-  userIndex = 0;
-  selectedUser = "";
   handleInput(): void{
     const mention = this.txtInput.lastIndexOf("@");
     if(mention!==-1){
       const search = this.txtInput.substring(mention+1);
       this.suggestions = this.getUsers(search);
       this.mentioned = true;
-    } else this.mentioned = false;
+    } else {
+      this.mentioned = false;
+      this.suggestions = [];
+    }
+    if(!this.suggestions.length) this.mentioned = false;
   }
   getUsers(query:string): string[]{
     const users: string[] = [
@@ -51,21 +56,29 @@ export class AppComponent {
   checkIndex(e:MouseEvent): void{
     if(!this.txtInput) return;
     const elem = e.target as HTMLInputElement;
-    const start = elem.selectionStart;
-    const end = elem.selectionEnd;
-    const search = this.txtInput.substring(start!,end!-start!);
+    const start = elem.selectionStart!;
+    const end = elem.selectionEnd!;
+    const search = this.txtInput.substring(start,end-start);
     search.split("@").map((el)=>{
-      if(!el) return;
+      if(!el) {
+        this.mentioned = false;
+        return;
+      }
       el.split(" ").map(word=>this.suggestions = this.getUsers(word));
       this.mentioned = true;
     });
+    this.edited = search;
   }
   handleKey(e:KeyboardEvent): void{
     e.preventDefault();
     if(!this.mentioned) return;
     switch(e.key){
-      case "ArrowUp": this.selectUserByKey("prev"); break;
-      case "ArrowDown": this.selectUserByKey("next"); break;
+      case "ArrowUp": 
+        this.selectUserByKey("prev"); 
+        break;
+      case "ArrowDown": 
+        this.selectUserByKey("next"); 
+        break;
     }
   }
   selectUserByKey(type: string): void{
