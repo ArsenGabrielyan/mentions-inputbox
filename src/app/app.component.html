@@ -1,6 +1,6 @@
 <div class="container">
   <div class="content">
-    <textarea type="text" name="inputbox" id="msgInput" [(ngModel)]="txtInput" (input)="handleInput()" (click)="checkIndex($event)" (keyup)="handleKey($event)" (keydown.enter)="handleEnter($event)"></textarea>
+    <textarea type="text" name="inputbox" id="msgInput" [(ngModel)]="txtInput" (input)="handleInput()" (click)="getMouseIndex($event)" (keyup)="handleKey($event)" (keydown.enter)="handleEnter($event)"></textarea>
   </div>
   <div class="autocomplete" *ngIf="mentioned">
     <p *ngFor="let user of suggestions" (click)="select(user)" [ngClass]="{'selected': selectedUser===user}">{{user}}</p>

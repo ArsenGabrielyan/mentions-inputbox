@@ -14,15 +14,17 @@ export class AppComponent {
   suggestions:string[] = [];
   handleInput(): void{
     const mention = this.txtInput.lastIndexOf("@");
+    const words = this.txtInput.split(" ");
+    const current = words[words.length-1];
     if(mention!==-1){
       const search = this.txtInput.substring(mention+1);
-      this.suggestions = this.getUsers(search);
-      this.mentioned = true;
-    } else {
-      this.mentioned = false;
+      this.suggestions = this.getUsers(search)
+    } else{
       this.suggestions = [];
     }
     if(!this.suggestions.length) this.mentioned = false;
+    this.mentioned = current.startsWith("@")
+    this.edited = current;
   }
   getUsers(query:string): string[]{
     const users: string[] = [
@@ -53,7 +55,7 @@ export class AppComponent {
     this.txtInput = words.join(" ");
     this.mentioned = false;
   }
-  checkIndex(e:MouseEvent): void{
+  getMouseIndex(e:MouseEvent): void{
     if(!this.txtInput) return;
     const elem = e.target as HTMLInputElement;
     const start = elem.selectionStart!;
