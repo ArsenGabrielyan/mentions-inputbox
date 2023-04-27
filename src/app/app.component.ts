@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   txtInput = "";
   selectedUser = "";
-  edited = "";
   userIndex = 0;
   mentioned = false;
   suggestions:string[] = [];
@@ -19,12 +18,8 @@ export class AppComponent {
     if(mention!==-1){
       const search = this.txtInput.substring(mention+1);
       this.suggestions = this.getUsers(search)
-    } else{
-      this.suggestions = [];
-    }
-    if(!this.suggestions.length) this.mentioned = false;
-    this.mentioned = current.startsWith("@")
-    this.edited = current;
+    } 
+    this.mentioned = current.startsWith("@");
   }
   getUsers(query:string): string[]{
     const users: string[] = [
@@ -58,18 +53,13 @@ export class AppComponent {
   getMouseIndex(e:MouseEvent): void{
     if(!this.txtInput) return;
     const elem = e.target as HTMLInputElement;
-    const start = elem.selectionStart!;
-    const end = elem.selectionEnd!;
+    const start = elem.selectionStart!, end = elem.selectionEnd!;
     const search = this.txtInput.substring(start,end-start);
     search.split("@").map((el)=>{
-      if(!el) {
-        this.mentioned = false;
-        return;
-      }
+      if(!el) return;
       el.split(" ").map(word=>this.suggestions = this.getUsers(word));
       this.mentioned = true;
     });
-    this.edited = search;
   }
   handleKey(e:KeyboardEvent): void{
     e.preventDefault();
