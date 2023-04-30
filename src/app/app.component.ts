@@ -41,10 +41,11 @@ export class AppComponent {
   }
   select(user:string, index:number=this.txtInput.split(" ").length-1): void{
     const words = this.txtInput.split(" "), word = `@${user} `; let i = words.length-1;
+    if(index<0 || index===-1) return;
     if(words[i].startsWith("@")){
       words[i] = word;
     } else{
-      words.splice(index,i,word);
+      words.splice(index-1,2,word);
     }
     this.txtInput = words.join(" ");
     this.mentioned = false;
