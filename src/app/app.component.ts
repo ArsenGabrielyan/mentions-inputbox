@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { users } from './data';
 
 @Component({
   selector: 'app-root',
@@ -21,22 +22,7 @@ export class AppComponent {
     } 
     this.mentioned = current.startsWith("@");
   }
-  getUsers(query:string): string[]{
-    const users: string[] = [
-      "Arsen Gabrielyan",
-      "Gev Gabrielyan", 
-      "John Addams", 
-      "Tom Smith", 
-      "Leanne Graham", 
-      "Ervin Howell", 
-      "Clementine Bauch", 
-      "Patricia Lebsack", 
-      "Chelsey Dietrich",
-      "Glenna Reichert", 
-      "Clementina DuBuque",
-      "Petros Poghosyan", 
-      "Poghos Petrosyan",
-    ];
+  private getUsers(query:string): string[]{
     return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
   select(user:string, index:number=this.txtInput.split(" ").length-1): void{
@@ -73,7 +59,7 @@ export class AppComponent {
         break;
     }
   }
-  selectUserByKey(type: string): void{
+  private selectUserByKey(type: string): void{
     switch(type){
       case "next":
         this.userIndex++;
