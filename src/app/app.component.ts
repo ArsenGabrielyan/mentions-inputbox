@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { users } from './data';
+import { users } from './data/data';
 
 @Component({
   selector: 'app-root',
@@ -25,15 +25,11 @@ export class AppComponent {
   private getUsers(query:string): string[]{
     return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
-  select(user:string, index:number=this.txtInput.split(" ").length-1): void{
-    const words = this.txtInput.split(" "), word = `@${user} `; let i = words.length-1;
-    if(index<0 || index===-1) return;
-    if(words[i].startsWith("@")){
-      words[i] = word;
-    } else{
-      words.splice(index-1,2,word);
-    }
-    this.txtInput = words.join(" ");
+  select(user:string): void{
+    const mentionStartI = this.txtInput.lastIndexOf("@");
+    const mentionEndI = this.txtInput.length;
+    const mention = user+" ";
+    this.txtInput = this.txtInput.slice(0,mentionStartI+1)+mention+this.txtInput.slice(mentionEndI);
     this.mentioned = false;
   }
   getMouseIndex(e:MouseEvent): void{
