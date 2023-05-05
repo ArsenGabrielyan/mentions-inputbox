@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { users } from './data/data';
-import { IUser } from './data/user';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ export class AppComponent {
   selectedUser = "";
   userIndex = 0;
   mentioned = false;
-  suggestions:IUser[] = [];
+  suggestions:string[] = [];
   handleInput(): void{
     const mention = this.txtInput.lastIndexOf("@");
     const words = this.txtInput.split(" ");
@@ -23,15 +22,10 @@ export class AppComponent {
     } 
     this.mentioned = current.startsWith("@");
   }
-  private sortCompare(a: IUser, b: IUser): number{
-    if(a.name>b.name) return 1;
-    if(a.name<b.name) return -1;
-    return 0;
+  private getUsers(query:string): string[]{
+    return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
-  private getUsers(query:string): IUser[]{
-    return users.sort((a,b)=>this.sortCompare(a,b)).filter(val=>val.name.toLowerCase().includes(query.toLowerCase()));
-  }
-  select(user:string, id:number=0): void{
+  select(user:string): void{
     const mentionStartI = this.txtInput.lastIndexOf("@");
     const mentionEndI = this.txtInput.length;
     const mention = user+" ";
@@ -41,9 +35,7 @@ export class AppComponent {
       this.txtInput = this.txtInput.slice(0,mentionStartI+1)+mention+this.txtInput.slice(mentionEndI);
     } else {
       this.suggestions.map((el)=>{
-        if(el.id===id) {
-          console.log(el.name)
-        }
+        if(el===user) console.log(el)
       })
     }
     this.mentioned = false;
@@ -76,12 +68,12 @@ export class AppComponent {
       case "next":
         this.userIndex++;
         if(this.suggestions[this.userIndex]===undefined) this.userIndex = 0;
-        this.selectedUser = this.suggestions[this.userIndex].name;
+        this.selectedUser = this.suggestions[this.userIndex];
         break;
       case "prev":
         this.userIndex--;
         if(this.suggestions[this.userIndex]===undefined) this.userIndex = this.suggestions.length-1;
-        this.selectedUser = this.suggestions[this.userIndex].name;
+        this.selectedUser = this.suggestions[this.userIndex];
         break;
     }
   }
