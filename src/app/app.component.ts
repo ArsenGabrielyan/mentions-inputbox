@@ -35,7 +35,7 @@ export class AppComponent {
       this.txtInput = this.txtInput.slice(0,mentionStartI+1)+mention+this.txtInput.slice(mentionEndI);
     } else {
       this.suggestions.map((el)=>{
-        if(el===user) console.log(el)
+        if(el===user) console.log(el);
       })
     }
     this.mentioned = false;
@@ -43,8 +43,8 @@ export class AppComponent {
   getMouseIndex(e:MouseEvent): void{
     if(!this.txtInput) return;
     const elem = e.target as HTMLInputElement;
-    const start = elem.selectionStart!, end = elem.selectionEnd!;
-    const search = this.txtInput.substring(start,end-start);
+    const start = elem.selectionStart!;
+    const search = this.txtInput.substring(0,start);
     search.split("@").map((el)=>{
       if(!el) return;
       el.split(" ").map(word=>this.suggestions = this.getUsers(word));
