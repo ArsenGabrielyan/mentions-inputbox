@@ -28,20 +28,22 @@ export class AppComponent {
   }
   private replaceWordFromIndex(oldText:string, i:number, newText:string){
     const start = oldText.slice(0,i).lastIndexOf("@");
-    const second = oldText.slice(start+1);
-    const otherArr = second.slice(0,second.length).split(" ")
+    const text = oldText.slice(start+1);
+    const otherArr = text.slice(0,text.length).split(" ")
     const other = otherArr.splice(2,otherArr.length-1).join(" ");
-    const selected = second.slice(0,second.lastIndexOf(" "));
+    const selected = text.slice(0,text.lastIndexOf(" "));
     const result = oldText.replace(!other ? other : selected,newText+" "+other);
     return result;
   }
   select(user:string): void{
-    const mentionStartI = this.txtInput.lastIndexOf("@");
-    const mentionEndI = this.txtInput.length;
+    const mentionStartI = this.txtInput.lastIndexOf("@"), mentionEndI = this.txtInput.length;
     const mention = user+" ";
     const words = this.txtInput.split(" ");
     const current = words[words.length-1];
-    current.startsWith("@") ? this.txtInput = this.txtInput.slice(0,mentionStartI+1)+mention+this.txtInput.slice(mentionEndI) : this.txtInput = this.replaceWordFromIndex(this.txtInput,this.selectedIndex,user);
+    if(current.startsWith("@"))
+      this.txtInput = this.txtInput.slice(0,mentionStartI+1)+mention+this.txtInput.slice(mentionEndI)
+    else 
+      this.txtInput = this.replaceWordFromIndex(this.txtInput,this.selectedIndex,user);
     this.mentioned = false;
   }
   getMouseIndex(e:MouseEvent): void{
@@ -51,8 +53,7 @@ export class AppComponent {
     const search = this.txtInput.substring(0,start);
     this.selectedIndex = start;
     search.split("@").map((el)=>{
-      if(!el) return;
-      el.split(" ").map(word=>this.suggestions = this.getUsers(word));
+      if(el) el.split(" ").map(word=>this.suggestions = this.getUsers(word));
       this.mentioned = true;
     });
   }
@@ -84,7 +85,6 @@ export class AppComponent {
   }
   handleEnter(e:Event): void{
     e.preventDefault();
-    if(!this.selectedUser || !this.mentioned) return;
-    this.select(this.selectedUser);
+    if(this.selectedUser || this.mentioned) this.select(this.selectedUser);
   }
 }
