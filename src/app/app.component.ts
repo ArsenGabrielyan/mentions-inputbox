@@ -26,13 +26,13 @@ export class AppComponent {
   private getUsers(query:string): string[]{
     return users.sort().filter(val=>val.toLowerCase().includes(query.toLowerCase()));
   }
-  private replaceWordFromIndex(oldText:string, i:number, newText:string){
+  private replaceWordFromIndex(oldText:string, i:number, newText:string): string{
     const start = oldText.slice(0,i).lastIndexOf("@");
     const text = oldText.slice(start+1);
     const otherArr = text.slice(0,text.length).split(" ")
     const other = otherArr.splice(2,otherArr.length-1).join(" ");
     const selected = text.slice(0,text.lastIndexOf(" "));
-    const result = oldText.replace(!other ? other : selected,newText+" "+other);
+    const result = oldText.replace(selected,newText+" "+other);
     return result;
   }
   select(user:string): void{
